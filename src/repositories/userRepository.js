@@ -23,6 +23,11 @@ async function findByemail(email) {
     return result.rows[0];
 }
 
+async function findById(id) {
+    const resultUser = await connection.query('SELECT * FROM users WHERE id = $1', [id]);
+    return resultUser.rows[0];
+}
+
 
 async function isEmailUnique(email) {
 
@@ -31,4 +36,4 @@ async function isEmailUnique(email) {
 }
 
 
-module.exports = {isEmailUnique, createUserInDatabase, findByemail}
+module.exports = {isEmailUnique, createUserInDatabase, findByemail, findById}

@@ -1,6 +1,6 @@
 const { validateSignUp, validateSignIn } = require('../schemas/usersSchemas');
 const { isEmailUnique, createUserInDatabase, findByemail } = require('../repositories/userRepository');
-const {createSession} = require('../repositories/sessionsRepository');
+const {createSession, destroySessionByToken} = require('../repositories/sessionsRepository');
 const bcrypt = require('bcrypt')
 
 async function registerUser(req,res) {
@@ -37,4 +37,14 @@ async function signInUser (req,res) {
     }
 }
 
-module.exports = {registerUser, signInUser};
+async function signOutUser (req, res) {
+
+    try {
+        await destroySessionByToken(req.session.token);
+        return res.status(200).send({result: "Session was destroyed"});
+    } catch {
+        return res.status(500).send({result: "Session was not destroyed"});
+    }
+}
+
+module.exports = {registerUser, signInUser, signOutUser};
