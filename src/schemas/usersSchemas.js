@@ -14,4 +14,15 @@ function validateSignUp(data) {
     return !validation.error;
 }
 
-module.exports = {validateSignUp}
+function validateSignIn(data) {
+
+    const SignInSchema = joi.object({
+        email: joi.string().email().required(),
+        password: joi.string().required(),
+    });
+
+    const validation = SignInSchema.validate(data);
+    return !validation.error;
+}
+
+module.exports = {validateSignUp, validateSignIn}

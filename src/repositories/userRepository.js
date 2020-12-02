@@ -1,4 +1,3 @@
-const { func, required } = require("joi");
 const connection = require('../database/index');
 const bcrypt = require('bcrypt');
 
@@ -14,15 +13,22 @@ async function createUserInDatabase(data) {
         "id": result.rows[0].id,
         "email": result.rows[0].email,
     }
-    
+
     return newUser;
 }
 
-
-function isEmailUnique(email) {
+async function findByemail(email) {
     
-    return true;
+    const result = await connection.query('SELECT * FROM users WHERE email = $1', [email]);
+    return result.rows[0];
 }
 
 
-module.exports = {isEmailUnique, createUserInDatabase}
+async function isEmailUnique(email) {
+
+    const result = await connection.query('SELECT * FROM users WHERE email = $1', [email]);  
+    return result.rows.length === 0;
+}
+
+
+module.exports = {isEmailUnique, createUserInDatabase, findByemail}

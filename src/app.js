@@ -9,7 +9,7 @@ app.use(express.json());
 
 
 app.post('/api/sign-up', registerUser);
-app.post('/api/sign-up', signInUser);
+app.post('/api/sign-in', signInUser);
 
 
 app.listen(3000);
