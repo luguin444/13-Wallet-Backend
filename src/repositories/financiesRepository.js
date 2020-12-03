@@ -7,9 +7,19 @@ async function getAllByUser(user) {
 
 async function create(user, data) {
 
-    const result = await connection.query(
-        'INSERT INTO financies (value, description, type, "userId") VALUES ($1,$2,$3,$4) RETURNING *', [data.value.toFixed(2), data.description, data.type, user.id]);
-    return result.rows[0];
+    let value = parseFloat(data.value);
+    
+
+    try{
+        const result = await connection.query(
+            'INSERT INTO financies (value, description, type, "userId") VALUES ($1,$2,$3,$4) RETURNING *', [value.toFixed(2), data.description, data.type, user.id]);
+        return result.rows[0];
+    } catch (e) {
+        console.log(e);
+    }
+   
 }
 
 module.exports = {getAllByUser, create}
+
+
