@@ -15,7 +15,15 @@ async function findSessionBytoken(token) {
     return result.rows[0];
 }
 
+async function findSessionByUserId(id) {
+    const result = await connection.query('SELECT * FROM sessions WHERE "userId" = $1', [id]);
+    return result.rows[0];
+}
+
+
+
+
 async function destroySessionByToken(token) {   
     await connection.query('DELETE FROM sessions WHERE token = $1', [token]);
 }
-module.exports = { createSession, findSessionBytoken, destroySessionByToken }
+module.exports = { createSession, findSessionBytoken, destroySessionByToken, findSessionByUserId }

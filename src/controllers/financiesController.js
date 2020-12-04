@@ -17,8 +17,7 @@ async function postFinancie (req, res) {
     
     try {
         const financie = await create(req.user, req.body);
-        console.log(financie);
-        return res.status(200).send(financie);
+        return res.status(201).send(financie);
     } catch {
         return res.status(500).send({error: "Could not add financie"});
     }
