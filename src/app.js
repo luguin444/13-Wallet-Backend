@@ -18,4 +18,4 @@ app.post('/api/sign-out',authMiddleware, signOutUser);
 app.get('/api/financies', authMiddleware, getAllFinancies );
 app.post('/api/financies', authMiddleware, postFinancie );
 
-app.listen(3000);
+module.exports = app;
