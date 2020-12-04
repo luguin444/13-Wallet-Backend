@@ -7,6 +7,7 @@ const db = require('../database/index');
 async function cleanUpDatabase() {
     await db.query('DELETE FROM users');
     await db.query('DELETE FROM sessions');
+    await db.query('DELETE FROM financies');
 }
 
 beforeAll(cleanUpDatabase)
