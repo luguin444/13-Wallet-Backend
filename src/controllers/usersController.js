@@ -24,13 +24,13 @@ async function signInUser (req,res) {
 
     try {
         const user = await findByemail(req.body.email);
-        if(user === undefined) return res.status(422).send({error: "Email not found"});
+        if(user === undefined) return res.status(401).send({error: "Email not found"});
 
         if (bcrypt.compareSync(req.body.password, user.password)) {
             const session = await createSession(user.id);
             return res.status(200).send({...session, "name": user.name});
         } else {
-            return res.status(422).send({error: "Password incorrect"});
+            return res.status(401).send({error: "Password incorrect"});
         }   
     } catch {
         res.send(500).send({ error: "Session was not created" });
